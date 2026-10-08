@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UNSO Cumples</title>
+<meta name="theme-color" content="#01395E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="UNSO Cumples">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== Tema UNSO ===== */
+:root{--bg:#eef2f8;--card:#fff;--ink:#0f2740;--mut:#566a85;--line:#d3ddea;--acc:#00385d;--acc2:#7995c4;--btn:#00385d;--ok:#1f9d55;--bad:#d64545;--pos:#2f6aa3;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1a2b;--card:#112a42;--ink:#e8eff8;--mut:#9fb2c9;--line:#234363;--acc:#8fb0dc;--acc2:#a8c0e4;--btn:#2f6aa3;--pos:#7fa6d6}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+h1,h2{font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.top{background:#01395e;padding:14px 16px}.top-in{max-width:720px;margin:0 auto}
+.brand{margin:0;color:#fff;font-size:1.45rem;font-weight:800;letter-spacing:-.01em}
+.hero{background:linear-gradient(135deg,#00385d 0%,#3d6390 55%,#7995c4 100%);color:#fff;border-radius:16px;padding:28px 22px;margin:4px 0 16px}
+.hero h1{margin:0 0 8px;font-size:2rem;text-shadow:0 2px 6px rgba(0,0,0,.25)}
+.hero p{margin:0;font-size:1.05rem}
+.hero p+p{margin-top:2px}
+.hero .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.hero .acts a{background:#fff;color:#00385d;font-weight:800;font-size:.9rem;text-decoration:none;border-radius:12px;padding:8px 14px}
+.btn{background:var(--btn);color:#fff;border:0;border-radius:12px;padding:12px 22px;font:inherit;font-weight:800;cursor:pointer}
+.btn.sec{background:transparent;color:var(--ink);border:1px solid var(--line)}
+:focus-visible{outline:3px solid var(--acc2);outline-offset:2px}
+input[type=search],input[type=number],select{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);min-width:0;height:48px}
+
+/* ===== Propio de la app ===== */
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px;margin-bottom:12px}
+.tabs button{font:inherit;font-weight:700;font-size:.92rem;border:0;background:transparent;color:var(--mut);border-radius:10px;height:42px;cursor:pointer}
+.tabs button[aria-pressed=true]{background:var(--btn);color:#fff}
+.tools{display:flex;gap:8px;margin:0 0 12px}
+.tools input{flex:1}.tools select{max-width:46%;flex:1}
+ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+li.p{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-left:5px solid var(--acc2);border-radius:14px;padding:10px 12px}
+li.p.soon{border-left-color:var(--pos)}
+li.p.now{border-left-color:var(--ok)}
+.days{flex:none;width:58px;text-align:center;color:var(--mut);line-height:1.1}
+.days b{display:block;font-size:1.6rem;font-weight:800;color:var(--acc)}
+.days small{font-size:.72rem}
+li.p.now .days b{color:var(--ok);font-size:1.4rem}
+.info{min-width:0;flex:1}
+.name{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.meta{color:var(--mut);font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wa{flex:none;display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:44px;padding:0 12px;border-radius:12px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:700;font-size:.85rem;gap:6px}
+li.p.now .wa{background:var(--ok);border-color:var(--ok);color:#fff}
+.msg{text-align:center;color:var(--mut);padding:24px 12px;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.err{background:var(--card);border:1px solid var(--line);border-left:10px solid var(--bad);border-radius:16px;padding:12px 16px;margin:0 0 12px;font-size:.92rem}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:20px;color:var(--mut);font-size:.85rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:0 0 12px}
+
+/* Calendario */
+.calhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.calhead h2{margin:0;font-size:1.15rem;text-align:center;flex:1}
+.calhead .btn{padding:0;width:44px;height:44px;font-size:1.2rem}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.dow{text-align:center;font-size:.75rem;font-weight:700;color:var(--mut);padding:4px 0}
+.day{position:relative;height:46px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--ink);font:inherit;font-size:.92rem;cursor:pointer;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.day.has{font-weight:800;background:var(--bg)}
+.day.today{border-color:var(--acc)}
+.day.sel{background:var(--btn);color:#fff}
+.day.empty{visibility:hidden}
+.dots{display:flex;gap:2px;height:5px}
+.dots i{width:5px;height:5px;border-radius:50%;background:var(--pos)}
+.day.sel .dots i{background:#fff}
+.subt{margin:16px 2px 8px;font-size:1rem}
+
+/* Por mes */
+.mrow{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:10px;width:100%;text-align:left;font:inherit;color:var(--ink);background:transparent;border:0;border-radius:10px;padding:8px 6px;cursor:pointer}
+.mrow.cur{background:var(--bg)}
+.mrow .n{font-weight:600}
+.bar{height:12px;border-radius:99px;background:var(--bg);overflow:hidden}
+.mrow.cur .bar{background:var(--card)}
+.bar i{display:block;height:100%;background:var(--pos);border-radius:99px;min-width:0}
+.mrow .c{font-weight:800;min-width:2.2em;text-align:right}
+.mrow .c small{display:block;font-weight:400;color:var(--mut);font-size:.72rem;white-space:nowrap}
+.cost{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cost label{font-weight:600;flex:1;min-width:180px}
+.cost input{width:130px}
+.total{margin:12px 0 0;color:var(--mut);font-size:.92rem}
+.total b{color:var(--ink)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in"><p class="brand">UNSO Cumples 🎂</p></div></header>
+<main>
+  <section class="hero" aria-live="polite">
+    <h1 id="hTitle">¡Hola!</h1>
+    <p id="hText">Cargando…</p>
+    <p id="hSub"></p>
+    <div class="acts" id="hActs"></div>
+  </section>
+
+  <div id="error"></div>
+
+  <div class="tabs" role="group" aria-label="Vista">
+    <button data-v="lista" aria-pressed="true">Lista</button>
+    <button data-v="cal" aria-pressed="false">Calendario</button>
+    <button data-v="meses" aria-pressed="false">Por mes</button>
+  </div>
+
+  <div class="tools">
+    <input type="search" id="q" placeholder="Buscá por nombre" aria-label="Buscar por nombre">
+    <select id="sector" aria-label="Filtrar por sector"><option value="">Todos los sectores</option></select>
+  </div>
+
+  <section id="vLista"><ul id="list"></ul></section>
+
+  <section id="vCal" hidden>
+    <div class="card">
+      <div class="calhead">
+        <button class="btn sec" id="prev" aria-label="Mes anterior">‹</button>
+        <h2 id="calTitle"></h2>
+        <button class="btn sec" id="next" aria-label="Mes siguiente">›</button>
+      </div>
+      <div class="grid" id="grid"></div>
+      <div style="text-align:center;margin-top:8px"><button class="btn sec" id="goToday" style="padding:8px 16px;font-size:.85rem">Ir a hoy</button></div>
+    </div>
+    <h2 class="subt" id="calSub"></h2>
+    <ul id="calList"></ul>
+  </section>
+
+  <section id="vMeses" hidden>
+    <div class="card" id="months"></div>
+    <div class="card" id="budget" hidden>
+      <div class="cost">
+        <label for="cost">Costo estimado por festejo ($)</label>
+        <input type="number" id="cost" min="0" step="100" inputmode="numeric" placeholder="Ej.: 8000">
+      </div>
+      <p class="total" id="total"></p>
+    </div>
+  </section>
+
+  <div class="foot">
+    <span id="stamp"></span>
+    <span style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+      <button class="btn sec" id="share">Compartir app</button>
+      <button class="btn sec" id="refresh">Actualizar</button>
+    </span>
+  </div>
+</main>
+
+<script>
+/* ============ CONFIGURACIÓN ============
+   Google Sheets → Archivo → Compartir → Publicar en la web → elegí la hoja y formato CSV → copiá el enlace.
+   Columnas (fila 1 = encabezados): Nombre | Cumpleaños | Sector | Teléfono (opcional)
+   Fechas aceptadas: 25/12, 25/12/1990 o 1990-12-25
+   Si cargás el teléfono (con código de país, ej. 5491155551234), "Saludar" abre el chat directo con esa persona.
+   Sin teléfono, WhatsApp te deja elegir a quién enviarlo. */
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQtizuF5jnRUgYcSqkd_KBfVDwbab0miLpIOJtohZ9Iz2ymPrDAJTIpUw0cxtRguELb7yipgNK9SugF/pub?gid=0&single=true&output=csv";
+/* Saludos: {nombre} se reemplaza por el primer nombre. Cada vez se elige uno al azar (sin repetir el anterior). */
+const SALUDOS = [
+  "¡Feliz cumple, {nombre}! 🎂🎉 Que tengas un día hermoso. Un abrazo de todo el equipo de la UNSO.",
+  "¡{nombre}, feliz cumpleaños! 🥳 Que este nuevo año venga con muchas alegrías. Un abrazo grande de tus compañeros de la UNSO.",
+  "¡Hoy es tu día, {nombre}! 🎈 Feliz cumple, que lo disfrutes un montón. ¡Te mandamos un abrazo desde la UNSO!",
+  "¡Feliz cumpleaños, {nombre}! 🎁 Gracias por ser parte del equipo. Que pases un día genial. 🎂",
+  "¡Muchas felicidades, {nombre}! 🎉 Que se cumplan todos tus deseos. Un abrazo de parte de todos en la UNSO."
+];
+/* Saludos propios de un sector (opcional). El nombre del sector debe coincidir con el de la columna Sector del Sheet.
+   Si un sector no figura acá, usa los saludos generales de arriba. Ejemplo:
+const SALUDOS_SECTOR = { "Sistemas": ["¡Feliz cumple, {nombre}! 💻🎂 Que tu día corra sin errores ni caídas del servidor."] };
+*/
+const SALUDOS_SECTOR = {};
+let ultimoSaludo = "";
+function elegirSaludo(p){
+  const key=Object.keys(SALUDOS_SECTOR).find(k=>k.toLowerCase()==p.sector.toLowerCase());
+  const pool=(key&&SALUDOS_SECTOR[key].length)?SALUDOS_SECTOR[key]:SALUDOS;
+  let t; do{ t=pool[Math.floor(Math.random()*pool.length)] }while(pool.length>1&&t===ultimoSaludo);
+  ultimoSaludo=t;
+  return t.replace(/\{nombre\}/g,p.name.split(/\s+/)[0]);
+}
+
+const MOSTRAR_PRESUPUESTO = false;   // poné true para volver a mostrar el costo por festejo y el presupuesto
+const CACHE_KEY = "bday-cache-v3";
+const MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const MES3 = MESES.map(m=>m.slice(0,3));
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let people = [], view = "lista";
+const now0 = new Date();
+let cal = {y:now0.getFullYear(), m:now0.getMonth(), sel:null};
+
+/* ---------- CSV ---------- */
+function parseCSV(text){
+  const rows=[]; let row=[],cur="",q=false;
+  text=text.replace(/^\uFEFF/,"");
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){ if(c=='"'){ if(text[i+1]=='"'){cur+='"';i++} else q=false } else cur+=c }
+    else if(c=='"') q=true;
+    else if(c==","||c==";"){ row.push(cur);cur="" }
+    else if(c=="\n"||c=="\r"){ if(c=="\r"&&text[i+1]=="\n")i++; row.push(cur);rows.push(row);row=[];cur="" }
+    else cur+=c;
+  }
+  if(cur||row.length){row.push(cur);rows.push(row)}
+  return rows.filter(r=>r.some(x=>x.trim()));
+}
+function parseDate(s){
+  s=(s||"").trim(); let m;
+  if(m=s.match(/^(\d{1,2})[\/\-.](\d{1,2})(?:[\/\-.](\d{2,4}))?$/)) return {d:+m[1],m:+m[2]};
+  if(m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/)) return {d:+m[3],m:+m[2]};
+  return null;
+}
+function toPeople(rows){
+  if(!rows.length) return [];
+  const head=rows[0].map(h=>h.trim().toLowerCase());
+  const find=(...k)=>head.findIndex(h=>k.some(x=>h.includes(x)));
+  let iN=find("nombre","name"), iD=find("cumple","fecha","nac","birth"), iS=find("sector","area","área","depart");
+  const iT=find("tel","whatsapp","celular","móvil","movil");
+  if(iN<0)iN=0; if(iD<0)iD=1; if(iS<0&&iT!==2)iS=2;
+  return rows.slice(1).map(r=>{
+    const dt=parseDate(r[iD]), name=(r[iN]||"").trim();
+    if(!name||!dt||dt.m<1||dt.m>12||dt.d<1||dt.d>31) return null;
+    return {name,sector:iS>=0?(r[iS]||"").trim():"",tel:iT>=0?(r[iT]||"").replace(/\D/g,""):"",...dt};
+  }).filter(Boolean);
+}
+
+/* ---------- Fechas ---------- */
+const isLeap=y=>(y%4==0&&y%100!=0)||y%400==0;
+function daysUntil(p, now=new Date()){
+  const y=now.getFullYear();
+  const today=Date.UTC(y,now.getMonth(),now.getDate());          // UTC: sin errores por cambio horario
+  const at=yr=>Date.UTC(yr,p.m-1,(p.m==2&&p.d==29&&!isLeap(yr))?28:p.d);
+  let next=at(y);
+  if(next<today) next=at(y+1);                                    // ya pasó → el año que viene
+  return Math.round((next-today)/864e5);
+}
+// Día efectivo del festejo en un año (29/2 → 28/2 si no es bisiesto)
+const festDay=(p,y)=>(p.m==2&&p.d==29&&!isLeap(y))?28:p.d;
+function enrich(){
+  people.forEach(p=>p.days=daysUntil(p));
+  people.sort((a,b)=>a.days-b.days||a.name.localeCompare(b.name,"es"));
+}
+
+/* ---------- Auxiliares ---------- */
+const join=a=>a.length<2?a.join(""):a.slice(0,-1).join(", ")+" y "+a[a.length-1];
+const label=d=>d==0?"Hoy":d==1?"Mañana":`En ${d} días`;
+function waLink(p){
+  return `https://wa.me/${p.tel||""}?text=${encodeURIComponent(elegirSaludo(p))}`;
+}
+const waBtn=p=>`<a class="wa" data-i="${people.indexOf(p)}" href="${waLink(p)}" target="_blank" rel="noopener" aria-label="Enviar saludo a ${esc(p.name)} por WhatsApp">💬 <span>Saludar</span></a>`;
+function filtered(useQ){
+  const q=useQ?$("q").value.trim().toLowerCase():"", sec=$("sector").value;
+  return people.filter(p=>(!sec||p.sector==sec)&&(!q||p.name.toLowerCase().includes(q)));
+}
+function row(p, mode){
+  const cls=p.days==0?"now":p.days<=7?"soon":"";
+  const left=mode=="date"?`<b>${p.d}</b><small>${MES3[p.m-1]}</small>`
+    :p.days==0?"<b>¡Hoy!</b>":`<b>${p.days}</b><small>${p.days==1?"día":"días"}</small>`;
+  const meta=(mode=="date"?label(p.days):`${p.d} de ${MESES[p.m-1]}`)+(p.sector?` · ${esc(p.sector)}`:"");
+  return `<li class="p ${cls}"><div class="days">${left}</div>
+    <div class="info"><div class="name">${esc(p.name)}</div><div class="meta">${meta}</div></div>${waBtn(p)}</li>`;
+}
+
+/* ---------- Portada ---------- */
+function renderHero(){
+  $("hActs").innerHTML="";
+  if(!people.length){ $("hTitle").textContent="UNSO Cumples"; $("hText").textContent="Todavía no hay datos para mostrar."; $("hSub").textContent=""; return }
+  const first=people[0], same=people.filter(p=>p.days==first.days);
+  const names=join(same.map(p=>p.name));
+  if(first.days==0){
+    $("hTitle").textContent="¡Hoy hay cumpleaños!";
+    $("hText").textContent=names+" cumple"+(same.length>1?"n":"")+" años. ¡A saludar!";
+    $("hSub").textContent="";
+    $("hActs").innerHTML=same.slice(0,4).map(p=>`<a data-i="${people.indexOf(p)}" href="${waLink(p)}" target="_blank" rel="noopener">💬 Saludar a ${esc(p.name.split(/\s+/)[0])}</a>`).join("");
+  } else {
+    $("hTitle").textContent="Próximo cumpleaños";
+    $("hText").textContent=names;
+    $("hSub").textContent=`${label(first.days)} · ${first.d} de ${MESES[first.m-1]}`;
+  }
+}
+
+/* ---------- Vista: lista ---------- */
+function renderList(){
+  const list=filtered(true);
+  $("list").innerHTML=list.length?list.map(p=>row(p,"days")).join("")
+    :`<li class="msg">${people.length?"No encontramos a nadie con ese filtro. Probá con otro nombre o sector.":"No hay cumpleaños para mostrar."}</li>`;
+}
+
+/* ---------- Vista: calendario ---------- */
+function renderCal(){
+  const {y,m}=cal, list=filtered(false);
+  const byDay={};
+  list.forEach(p=>{ if(p.m-1==m){ (byDay[festDay(p,y)]||(byDay[festDay(p,y)]=[])).push(p) } });
+  $("calTitle").textContent=`${MESES[m][0].toUpperCase()+MESES[m].slice(1)} ${y}`;
+  const first=new Date(y,m,1).getDay();                            // semana desde el domingo
+  const n=new Date(y,m+1,0).getDate(), t=new Date();
+  let h=["D","L","M","M","J","V","S"].map(x=>`<div class="dow" aria-hidden="true">${x}</div>`).join("");
+  for(let i=0;i<first;i++) h+='<div class="day empty"></div>';
+  for(let d=1;d<=n;d++){
+    const c=(byDay[d]||[]).length, isT=t.getFullYear()==y&&t.getMonth()==m&&t.getDate()==d;
+    h+=`<button class="day${c?" has":""}${isT?" today":""}${cal.sel==d?" sel":""}" data-d="${d}" aria-label="${d} de ${MESES[m]}${c?`, ${c} cumpleaños`:""}">${d}<span class="dots">${"<i></i>".repeat(Math.min(c,3))}</span></button>`;
+  }
+  $("grid").innerHTML=h;
+  const items=cal.sel?(byDay[cal.sel]||[]):Object.keys(byDay).map(Number).sort((a,b)=>a-b).flatMap(d=>byDay[d]);
+  $("calSub").textContent=cal.sel?`${cal.sel} de ${MESES[m]}`:`Cumpleaños de ${MESES[m]}`;
+  $("calList").innerHTML=items.length?items.map(p=>row(p,"date")).join("")
+    :`<li class="msg">${cal.sel?"Nadie cumple años ese día.":"No hay cumpleaños este mes."}</li>`;
+}
+$("grid").onclick=e=>{ const b=e.target.closest(".day[data-d]"); if(!b) return; const d=+b.dataset.d; cal.sel=cal.sel==d?null:d; renderCal() };
+function moveMonth(k){ cal.m+=k; if(cal.m<0){cal.m=11;cal.y--} if(cal.m>11){cal.m=0;cal.y++} cal.sel=null; renderCal() }
+$("prev").onclick=()=>moveMonth(-1); $("next").onclick=()=>moveMonth(1);
+$("goToday").onclick=()=>{ const t=new Date(); cal={y:t.getFullYear(),m:t.getMonth(),sel:null}; renderCal() };
+
+/* ---------- Vista: por mes ---------- */
+function getCost(){ if(!MOSTRAR_PRESUPUESTO) return 0; try{ return +localStorage.getItem("bday-cost")||0 }catch(e){ return 0 } }
+const money=n=>"$ "+Math.round(n).toLocaleString("es-AR");
+function renderMonths(){
+  const list=filtered(false), counts=Array(12).fill(0);
+  list.forEach(p=>counts[p.m-1]++);
+  const max=Math.max(1,...counts), cost=getCost(), cur=new Date().getMonth();
+  $("months").innerHTML=counts.map((c,i)=>`<button class="mrow${i==cur?" cur":""}" data-m="${i}" aria-label="${MESES[i]}: ${c} cumpleaños. Ver en el calendario">
+    <span class="n">${MESES[i][0].toUpperCase()+MESES[i].slice(1)}</span>
+    <span class="bar"><i style="width:${c/max*100}%"></i></span>
+    <span class="c">${c}${cost?`<small>${money(c*cost)}</small>`:""}</span></button>`).join("");
+  const total=list.length;
+  $("total").innerHTML=total?(cost?`En el año: <b>${total}</b> cumpleaños · <b>${money(total*cost)}</b> estimados.`:`En el año: <b>${total}</b> cumpleaños.${MOSTRAR_PRESUPUESTO?" Ingresá un costo por festejo para estimar el presupuesto de cada mes.":""}`):"";
+}
+$("months").onclick=e=>{ const b=e.target.closest(".mrow"); if(!b) return; cal={y:new Date().getFullYear(),m:+b.dataset.m,sel:null}; setView("cal") };
+$("budget").hidden=!MOSTRAR_PRESUPUESTO;
+$("cost").value=getCost()||"";
+$("cost").oninput=e=>{ try{localStorage.setItem("bday-cost",String(Math.max(0,+e.target.value||0)))}catch(_){} renderMonths() };
+
+/* ---------- Vistas ---------- */
+function setView(v){
+  view=v;
+  document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v==v));
+  $("vLista").hidden=v!="lista"; $("vCal").hidden=v!="cal"; $("vMeses").hidden=v!="meses";
+  $("q").hidden=v!="lista";
+  renderView();
+}
+function renderView(){ view=="lista"?renderList():view=="cal"?renderCal():renderMonths() }
+document.querySelector(".tabs").onclick=e=>{ const b=e.target.closest("button"); if(b) setView(b.dataset.v) };
+
+function fillSectors(){
+  const cur=$("sector").value;
+  const s=[...new Set(people.map(p=>p.sector).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es"));
+  $("sector").innerHTML='<option value="">Todos los sectores</option>'+s.map(x=>`<option>${esc(x)}</option>`).join("");
+  $("sector").value=s.includes(cur)?cur:"";
+}
+const hora=t=>new Date(t).toLocaleString("es-AR",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+
+/* ---------- Datos ---------- */
+async function load(){
+  const btn=$("refresh"); btn.disabled=true; btn.textContent="Actualizando…"; $("error").innerHTML="";
+  let text=null, at=Date.now(), offline=false;
+  try{
+    if(!SHEET_CSV_URL||SHEET_CSV_URL.startsWith("PEGA_")) throw new Error("Falta pegar la URL del Sheet en SHEET_CSV_URL.");
+    const res=await fetch(SHEET_CSV_URL,{cache:"no-store"});
+    if(!res.ok) throw new Error("El Sheet respondió con el error "+res.status+".");
+    text=await res.text();
+    try{localStorage.setItem(CACHE_KEY,JSON.stringify({text,at}))}catch(e){}
+  }catch(e){
+    let c=null; try{c=localStorage.getItem(CACHE_KEY)}catch(_){}
+    if(c){ const o=JSON.parse(c); text=o.text; at=o.at; offline=true }
+    $("error").innerHTML=`<div class="err">${offline?"No pudimos actualizar. Mostramos la última copia guardada. Revisá tu conexión y volvé a intentar.":"No pudimos cargar los datos. "+esc(e.message)}</div>`;
+  }
+  if(text){ people=toPeople(parseCSV(text)); enrich(); fillSectors(); $("stamp").textContent=(offline?"Copia guardada: ":"Actualizado: ")+hora(at) }
+  renderHero(); renderView();
+  btn.disabled=false; btn.textContent="Actualizar";
+}
+
+/* ---------- Compartir app ---------- */
+async function compartir(){
+  const url=location.origin+location.pathname.replace(/index\.html$/,"");
+  const text="Instalá UNSO Cumples para no olvidarte de ningún cumpleaños. iPhone: abrilo en Safari y tocá Compartir → Añadir a pantalla de inicio. Android: abrilo en Chrome y tocá ⋮ → Instalar app.";
+  try{
+    if(navigator.share){ await navigator.share({title:"UNSO Cumples 🎂",text,url}); return }
+    await navigator.clipboard.writeText(text+"\n"+url);
+    const b=$("share"); b.textContent="¡Enlace copiado!"; setTimeout(()=>b.textContent="Compartir app",2200);
+  }catch(e){ if(e&&e.name!=="AbortError") prompt("Copiá este enlace:",url) }
+}
+$("share").onclick=compartir;
+document.addEventListener("click",e=>{ const a=e.target.closest("a[data-i]"); const p=a&&people[+a.dataset.i]; if(p) a.href=waLink(p) });
+
+/* ---------- PWA y eventos ---------- */
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+$("refresh").onclick=load;
+$("q").oninput=renderList;
+$("sector").onchange=renderView;
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden&&people.length){ enrich(); renderHero(); renderView() } });
+load();
+</script>
+</body>
+</html>
