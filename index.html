@@ -54,6 +54,7 @@ li.p.now .days b{color:var(--ok);font-size:1.4rem}
 .info{min-width:0;flex:1}
 .name{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .meta{color:var(--mut);font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sector{color:var(--acc);font-size:.8rem;font-weight:600;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .wa{flex:none;display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:44px;padding:0 12px;border-radius:12px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:700;font-size:.85rem;gap:6px}
 li.p.now .wa{background:var(--ok);border-color:var(--ok);color:#fff}
 .msg{text-align:center;color:var(--mut);padding:24px 12px;background:var(--card);border:1px solid var(--line);border-radius:14px}
@@ -251,7 +252,7 @@ const label=d=>d==0?"Hoy":d==1?"Mañana":`En ${d} días`;
 function waLink(p){
   return `https://wa.me/${p.tel||""}?text=${encodeURIComponent(elegirSaludo(p))}`;
 }
-const waBtn=p=>`<a class="wa" data-i="${people.indexOf(p)}" href="${waLink(p)}" target="_blank" rel="noopener" aria-label="Enviar saludo a ${esc(p.name)} por WhatsApp">💬 <span>Saludar</span></a>`;
+const waBtn=p=>p.days!==0?"":`<a class="wa" data-i="${people.indexOf(p)}" href="${waLink(p)}" target="_blank" rel="noopener" aria-label="Enviar saludo a ${esc(p.name)} por WhatsApp">💬 <span>Saludar</span></a>`;
 function filtered(useQ){
   const q=useQ?$("q").value.trim().toLowerCase():"", sec=$("sector").value;
   return people.filter(p=>(!sec||p.sector==sec)&&(!q||p.name.toLowerCase().includes(q)));
@@ -260,9 +261,9 @@ function row(p, mode){
   const cls=p.days==0?"now":p.days<=7?"soon":"";
   const left=mode=="date"?`<b>${p.d}</b><small>${MES3[p.m-1]}</small>`
     :p.days==0?"<b>¡Hoy!</b>":`<b>${p.days}</b><small>${p.days==1?"día":"días"}</small>`;
-  const meta=(mode=="date"?label(p.days):`${p.d} de ${MESES[p.m-1]}`)+(p.sector?` · ${esc(p.sector)}`:"");
+  const meta=mode=="date"?label(p.days):`${p.d} de ${MESES[p.m-1]}`;
   return `<li class="p ${cls}"><div class="days">${left}</div>
-    <div class="info"><div class="name">${esc(p.name)}</div><div class="meta">${meta}</div></div>${waBtn(p)}</li>`;
+    <div class="info"><div class="name">${esc(p.name)}</div><div class="meta">${meta}</div>${p.sector?`<div class="sector">${esc(p.sector)}</div>`:""}</div>${waBtn(p)}</li>`;
 }
 
 /* ---------- Portada ---------- */
